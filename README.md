@@ -4,7 +4,16 @@ R code for: "Sequential Decision-Making with Bayesian Updates for Network Traver
 
 ## Overview
 
-This repository contains two-stage navigation algorithms code, including main policy functions and all helpers needed.
+This repository contains two-stage policy learning algorithms for navigation in grid environments under spatially correlated obstacles using Gaussian Random Field priors and Bayesian belief updates.
+
+**Algorithms implemented:**
+- **TS**: Two-stage policy with Monte Carlo value estimation
+- **TS-DRL (Distributional RL)**: Two-stage policy with distributional reinforcement learning
+
+**Environment:**
+- Lattice grid graph with vertices at integer coordinates
+- 8-connected grid (horizontal, vertical, and diagonal edges)
+- Circular obstacles that block intersecting edges
 
 ## Repository Structure
 
