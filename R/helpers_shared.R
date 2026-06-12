@@ -323,11 +323,20 @@ posterior_update <- function(obstacle_df, Record_obstacle,
   )
   
   # back-substitution (avoid inversion)
-  Minv_y <- backsolve(cholM, forwardsolve(t(cholM), y_active))
-  Minv_K <- backsolve(cholM, forwardsolve(t(cholM), K_active))
+  innovation <- y_active - mu_active
   
-  posterior_mean_active <- as.numeric(K_active %*% Minv_y)
-  posterior_cov_active <- K_active - K_active %*% Minv_K
+  Minv_innovation <- backsolve(
+    cholM,
+    forwardsolve(t(cholM), innovation)
+  )
+  
+  Minv_K <- backsolve(
+    cholM,
+    forwardsolve(t(cholM), K_active)
+  )
+  
+  posterior_mean_active <- as.numeric(mu_active + K_active %*% Minv_innovation)
+  posterior_cov_active  <- K_active - K_active %*% Minv_K
   
   # --- STEP 4 Restore full length -----------------------------
   posterior_mean_full <- posterior_mean_active
